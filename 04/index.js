@@ -1,11 +1,54 @@
 const { readFile } = require('../filereader')
 
 const problem1 = (indata) => {
-  return indata.length
+  let fullyContained = 0
+
+  indata.forEach((data) => {
+    const [firstElf, secondElf] = data.split(',')
+    const [lowerFirst, upperFirst] = firstElf.split('-')
+    const [lowerSecond, upperSecond] = secondElf.split('-')
+
+    const isFullyContained =
+      (Number(lowerFirst) <= Number(lowerSecond) &&
+        Number(upperFirst) >= Number(upperSecond)) ||
+      (Number(lowerSecond) <= Number(lowerFirst) &&
+        Number(upperSecond) >= Number(upperFirst))
+
+    if (isFullyContained) {
+      fullyContained += 1
+    }
+  })
+
+  return fullyContained
 }
 
 const problem2 = (indata) => {
-  return indata.length
+  let fullyContained = 0
+
+  indata.forEach((data) => {
+    const [firstElf, secondElf] = data.split(',')
+    const [lowerFirst, upperFirst] = firstElf.split('-')
+    const [lowerSecond, upperSecond] = secondElf.split('-')
+
+    const firstDiff = Number(upperFirst) - Number(lowerFirst)
+    const secondDiff = Number(upperSecond) - Number(lowerSecond)
+
+    const isFullyContained =
+      (Number(lowerFirst) <= Number(lowerSecond) &&
+        Number(upperFirst) >= Number(upperSecond)) ||
+      (Number(lowerSecond) <= Number(lowerFirst) &&
+        Number(upperSecond) >= Number(upperFirst)) ||
+      (Number(lowerFirst) + firstDiff >= Number(lowerSecond) &&
+        Number(lowerFirst) + firstDiff <= Number(upperSecond)) ||
+      (Number(lowerSecond) + secondDiff >= Number(lowerFirst) &&
+        Number(lowerSecond) + secondDiff <= Number(upperFirst))
+
+    if (isFullyContained) {
+      fullyContained += 1
+    }
+  })
+
+  return fullyContained
 }
 
 const main = (test) => {
@@ -30,4 +73,4 @@ const main = (test) => {
   }
 }
 
-main(true)
+main()
